@@ -14,11 +14,13 @@ const server = http.createServer((request, response) => {
             fetchFile(path);
             break;
         case '/home':
-            if(DEBUG) console.log('Home Route');
-            path += 'home.html';
-            if(DEBUG) console.log('Path:', path);
-            fetchFile(path);
+            response.statusCode = 301;
+            response.setHeader('Location', '/');
+            response.end();
             break;
+        case '/cookie':
+            response.setHeader('Set-Cookie', 'fullName=Fred Flinstone');
+            response.end('Cookie Set');
         case '/about':
             if(DEBUG) console.log('About Route');
             path += 'about.html';
